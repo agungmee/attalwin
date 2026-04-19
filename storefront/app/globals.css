@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+:root {
+  --background: white !important;
+  --foreground: #0f172a !important; /* slate-900 */
+}
+
+html {
+  color-scheme: light !important;
+}
+
+body {
+  background-color: white !important;
+  color: #0f172a !important;
+  font-family: inherit;
+}
+
+/* Ensure text-white utility always wins for badges and buttons */
+.text-white {
+  color: white !important;
+}
+
+button, a, .cursor-pointer {
+  cursor: pointer !important;
+}
+
+button:disabled {
+  cursor: not-allowed !important;
+}
+
+.text-slate-900 { color: #0f172a !important; }
+.text-slate-800 { color: #1e293b !important; }
+.text-slate-700 { color: #334155 !important; }
+.text-slate-600 { color: #475569 !important; }
+.text-slate-500 { color: #64748b !important; }
+.text-slate-400 { color: #94a3b8 !important; }
