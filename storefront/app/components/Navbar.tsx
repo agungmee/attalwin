@@ -96,6 +96,7 @@ export function Navbar() {
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
               className="fixed top-0 right-0 bottom-0 w-[280px] bg-white z-[101] md:hidden shadow-2xl flex flex-col"
+              style={{ backgroundColor: 'white' }}
             >
               <div className="p-6 flex items-center justify-between border-b border-slate-50">
                 <div className="text-xl font-bold tracking-tighter text-[#f53d2d]">Menu</div>
