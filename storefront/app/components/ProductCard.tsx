@@ -58,9 +58,17 @@ export function ProductCard({ product, onAddVariantClick, idx }: ProductCardProp
       </div>
 
       <div className="grid grid-cols-2 border-t border-slate-100">
-         <Link href={`/product/${product.id}`} className="py-2.5 text-[9px] font-bold uppercase tracking-tight text-slate-500 hover:bg-slate-50 flex items-center justify-center border-r border-slate-100 transition-colors">Details</Link>
-         <button onClick={() => onAddVariantClick?.(product)} className="py-2.5 text-[9px] font-bold uppercase tracking-tight text-[#f53d2d] hover:bg-[#fff5f2] flex items-center justify-center transition-colors">
-           <Plus className="w-3 h-3 mr-1" /> Keranjang
+         <Link 
+          href={`/product/${product.id}`} 
+          className="py-3 text-[10px] font-extrabold uppercase tracking-widest bg-[#f53d2d] text-white hover:bg-[#d73211] flex items-center justify-center border-r border-slate-100 transition-all font-sans"
+         >
+           Details
+         </Link>
+         <button 
+          onClick={() => onAddVariantClick?.(product)} 
+          className="py-3 text-[10px] font-extrabold uppercase tracking-widest text-[#f53d2d] hover:bg-[#fff5f2] flex items-center justify-center transition-all font-sans"
+         >
+           <Plus className="w-3.5 h-3.5 mr-1" /> Keranjang
          </button>
       </div>
     </motion.div>

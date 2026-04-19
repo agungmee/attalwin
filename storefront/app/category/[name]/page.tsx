@@ -108,31 +108,67 @@ export default function CategoryPage({ params }: { params: Promise<{ name: strin
                </div>
                
                {/* Sort bar (mobile-friendly version of the Home sort bar) */}
-               <div className="flex items-center justify-between bg-[#ededed] p-2 rounded-sm overflow-x-auto">
-                  <div className="flex items-center space-x-2 whitespace-nowrap">
+               {/* Sort bar (Responsive) */}
+               <div className="bg-[#ededed] p-2 rounded-sm flex items-center justify-between">
+                  {/* Desktop Sorting UI */}
+                  <div className="hidden md:flex items-center space-x-2">
                      <span className="text-sm text-slate-500 mr-2 ml-1">Urutkan</span>
                      {["Populer", "Terbaru", "Terlaris"].map((sort) => (
-                        <button
-                          key={sort}
-                          onClick={() => setSortBy(sort)}
-                          className={cn(
-                            "px-4 py-1.5 text-sm rounded-sm transition-all font-medium border border-transparent",
-                            sortBy === sort ? "bg-[#f53d2d] text-white" : "bg-white text-slate-800 hover:text-[#f53d2d] shadow-sm"
-                          )}
-                        >
-                          {sort}
+                       <button
+                         key={sort}
+                         onClick={() => setSortBy(sort)}
+                         className={cn(
+                           "px-4 py-1.5 text-sm rounded-sm transition-all font-medium border border-transparent shadow-sm",
+                           sortBy === sort ? "bg-[#f53d2d] text-white" : "bg-white text-slate-800 hover:text-[#f53d2d]"
+                         )}
+                       >
+                         {sort}
+                       </button>
+                     ))}
+                     <div className="relative group">
+                        <button className="px-4 py-1.5 text-sm bg-white text-slate-800 rounded-sm flex items-center min-w-[140px] justify-between shadow-sm font-medium border border-transparent hover:text-[#f53d2d] transition-colors">
+                          {sortBy.startsWith("Harga") ? sortBy : "Harga"} <ChevronDown className="ml-2 w-4 h-4" />
                         </button>
-                      ))}
-                      <div className="relative group">
-                         <button className="px-4 py-1.5 text-sm bg-white text-slate-800 rounded-sm flex items-center min-w-[120px] justify-between shadow-sm font-medium border border-transparent">
-                           Harga <ChevronDown className="ml-2 w-4 h-4" />
-                         </button>
-                         <div className="absolute top-[calc(100%+2px)] left-0 right-0 bg-white shadow-xl rounded-sm py-2 hidden group-hover:block z-20 border border-slate-100">
-                            <div onClick={() => setSortBy("Harga: Rendah ke Tinggi")} className="px-4 py-2 text-sm hover:text-[#f53d2d] cursor-pointer">Harga: Rendah ke Tinggi</div>
-                            <div onClick={() => setSortBy("Harga: Tinggi ke Rendah")} className="px-4 py-2 text-sm hover:text-[#f53d2d] cursor-pointer">Harga: Tinggi ke Rendah</div>
-                         </div>
-                      </div>
+                        <div className="absolute top-[calc(100%+2px)] left-0 right-0 bg-white shadow-xl rounded-sm py-2 hidden group-hover:block z-20 border border-slate-100">
+                           <div onClick={() => setSortBy("Harga: Rendah ke Tinggi")} className="px-4 py-2 text-sm hover:text-[#f53d2d] cursor-pointer">Harga: Rendah ke Tinggi</div>
+                           <div onClick={() => setSortBy("Harga: Tinggi ke Rendah")} className="px-4 py-2 text-sm hover:text-[#f53d2d] cursor-pointer">Harga: Tinggi ke Rendah</div>
+                        </div>
+                     </div>
                   </div>
+
+                  {/* Mobile Sorting UI (Split 50/50) */}
+                  <div className="md:hidden flex items-center gap-2 w-full">
+                     <div className="relative w-1/2">
+                       <select 
+                         value={["Populer", "Terbaru", "Terlaris"].includes(sortBy) ? sortBy : "Lainnya"}
+                         onChange={(e) => setSortBy(e.target.value)}
+                         className="w-full bg-white border border-slate-100 rounded-sm px-3 py-2 text-[13px] font-bold shadow-sm outline-none appearance-none pr-8 text-slate-800"
+                       >
+                         <option value="Populer">Populer</option>
+                         <option value="Terbaru">Terbaru</option>
+                         <option value="Terlaris">Terlaris</option>
+                         {sortBy.startsWith("Harga") && <option value="Lainnya">Terpilih: Harga</option>}
+                       </select>
+                       <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#f53d2d] pointer-events-none" />
+                     </div>
+
+                     <div className="relative w-1/2">
+                       <select 
+                         value={sortBy.startsWith("Harga") ? sortBy : "Harga"}
+                         onChange={(e) => setSortBy(e.target.value)}
+                         className={cn(
+                           "w-full bg-white border rounded-sm px-3 py-2 text-[13px] font-bold shadow-sm outline-none appearance-none pr-8",
+                           sortBy.startsWith("Harga") ? "border-[#f53d2d] text-[#f53d2d]" : "border-slate-100 text-slate-800"
+                         )}
+                       >
+                         <option value="Harga" disabled={sortBy.startsWith("Harga")}>Harga</option>
+                         <option value="Harga: Rendah ke Tinggi">Rendah ke Tinggi</option>
+                         <option value="Harga: Tinggi ke Rendah">Tinggi ke Rendah</option>
+                       </select>
+                       <ChevronDown className={cn("absolute right-2 top-1/2 -translate-y-1/2 w-3.5 h-3.5 pointer-events-none", sortBy.startsWith("Harga") ? "text-[#f53d2d]" : "text-slate-400")} />
+                     </div>
+                  </div>
+
                   <div className="hidden md:flex items-center space-x-2 text-sm text-slate-500">
                      <span>1/1</span>
                      <div className="flex border border-slate-200 bg-white shadow-sm rounded-sm">

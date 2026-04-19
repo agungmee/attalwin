@@ -20,7 +20,8 @@ import {
   ChevronDown,
   MessageCircle,
   ShoppingCart,
-  X
+  X,
+  Truck
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCart } from '../../context/CartContext';
@@ -291,18 +292,20 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
 
                {/* Shipping */}
                <div className="flex items-start py-4 border-b md:border-t border-slate-50">
-                  <span className="w-16 md:w-28 text-sm text-slate-500 pt-1 shrink-0">Pengiriman</span>
-                  <div className="flex flex-col space-y-4 flex-1">
+                  <span className="w-20 md:w-28 text-sm text-slate-500 pt-1 shrink-0">Pengiriman</span>
+                  <div className="flex-1 min-w-0">
                      <div className="flex items-start space-x-3">
-                        <i className="fa-solid fa-truck-fast text-slate-400 mt-1.5 translate-y-[-2px]"></i>
-                        <div className="flex flex-col space-y-2 flex-1">
-                           <div className="flex items-center space-x-2 text-[13px] md:text-sm">
-                              <span className="text-slate-400 w-16 md:hidden">Ke</span>
-                              <span className="font-bold text-slate-800">KOTA JAKARTA PUSAT</span>
-                              <ChevronRight className="w-4 h-4 text-slate-400 md:hidden ml-auto" />
-                              <ChevronDown className="hidden md:block w-4 h-4 text-slate-400 cursor-pointer" />
+                        <Truck className="w-5 h-5 text-slate-400 mt-0.5 shrink-0" />
+                        <div className="flex flex-col flex-1 min-w-0">
+                           <div className="flex items-center justify-between group cursor-pointer">
+                              <div className="flex items-center space-x-2 overflow-hidden">
+                                 <span className="text-slate-400 text-[13px] md:text-sm shrink-0">Ke</span>
+                                 <span className="font-bold text-slate-800 text-[13px] md:text-sm truncate">KOTA JAKARTA PUSAT</span>
+                              </div>
+                              <ChevronRight className="w-4 h-4 text-slate-400 shrink-0" />
                            </div>
-                           <div className="hidden md:flex items-center space-x-2 text-sm w-full max-w-[320px]">
+                           
+                           <div className="hidden md:flex items-center space-x-2 text-sm mt-3">
                               <span className="text-slate-400 w-16">Kurir</span>
                               <div className="flex-1 relative">
                                 <select className="w-full appearance-none bg-white border border-slate-200 rounded-sm py-2 pl-3 pr-10 text-sm focus:outline-none focus:border-[#f53d2d] cursor-pointer">
@@ -314,9 +317,9 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
                                 <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
                               </div>
                            </div>
-                           <div className="flex items-center space-x-2 text-[13px] text-slate-500">
-                              <span className="md:hidden">Garansi tiba 21 Apr • </span>
-                              <span className="font-medium text-slate-900">Rp0 - Rp25.000</span>
+
+                           <div className="mt-1.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-[12px] md:text-[13px] text-slate-500">
+                              <span className="text-[#f53d2d] font-bold">Rp0 - Rp25.000</span>
                            </div>
                         </div>
                      </div>
