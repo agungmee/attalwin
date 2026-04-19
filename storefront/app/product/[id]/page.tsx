@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useRef } from 'react';
+import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import { 
@@ -23,12 +24,13 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCart } from '../../context/CartContext';
-import { PRODUCTS } from '../../lib/data';
+import { PRODUCTS, REVIEWS } from '../../lib/data';
 import { cn } from '../../lib/utils';
 
 export default function ProductDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = React.use(params);
-  const { addToCart } = useCart();
+  const router = useRouter();
+  const { addToCart, setCheckoutItems } = useCart();
   const productId = parseInt(id);
   
   const product = useMemo(() => {
@@ -419,7 +421,14 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
                     <ShoppingBag className="w-5 h-5" />
                     <span>Masukkan Keranjang</span>
                   </button>
-                  <button className="flex-1 max-w-[250px] py-4 bg-[#f53d2d] text-white font-bold rounded-sm hover:bg-[#d73211] transition-all shadow-lg shadow-[#f53d2d]/20 uppercase tracking-wide">
+                  <button 
+                    onClick={() => {
+                      if (!selColor || !selSize) return alert('Silakan pilih variasi terlebih dahulu');
+                      setCheckoutItems([{ ...product, color: selColor, size: selSize, quantity: qty }]);
+                      router.push('/checkout');
+                    }}
+                    className="flex-1 max-w-[250px] py-4 bg-[#f53d2d] text-white font-bold rounded-sm hover:bg-[#d73211] transition-all shadow-lg shadow-[#f53d2d]/20 uppercase tracking-wide"
+                  >
                     Beli Sekarang
                   </button>
                </div>
@@ -444,6 +453,8 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
                <button 
                  onClick={() => {
                    if (!selColor || !selSize) return alert('Silakan pilih variasi');
+                   setCheckoutItems([{ ...product, color: selColor, size: selSize, quantity: 1 }]);
+                   router.push('/checkout');
                  }}
                  className="w-1/2 bg-[#f53d2d] text-white font-bold flex flex-col items-center justify-center"
                >
@@ -555,6 +566,59 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
                     <button key={tag} className={cn("px-4 py-1.5 border border-slate-200 bg-white text-sm rounded-sm hover:border-[#f53d2d] hover:text-[#f53d2d]", i === 0 && "border-[#f53d2d] text-[#f53d2d]")}>{tag}</button>
                   ))}
                </div>
+            </div>
+
+            {/* Reviews List */}
+            <div className="space-y-6 divide-y divide-slate-50">
+               {REVIEWS.map((review) => (
+                 <div key={review.id} className="pt-6 flex space-x-4">
+                    <div className="flex-shrink-0">
+                       <div className="relative w-10 h-10 rounded-full overflow-hidden border border-slate-100 bg-slate-50">
+                          <Image src={review.avatar} alt={review.user} fill className="object-cover" />
+                       </div>
+                    </div>
+                    <div className="flex-1 space-y-2">
+                       <div className="flex flex-col">
+                          <span className="text-[12px] md:text-xs font-medium text-slate-900">{review.user}</span>
+                          <div className="flex items-center text-[#f53d2d] my-1">
+                             {[...Array(5)].map((_, i) => (
+                               <Star 
+                                 key={i} 
+                                 className={cn("w-2.5 h-2.5", i < review.rating ? "fill-current" : "text-slate-200")} 
+                               />
+                             ))}
+                          </div>
+                          <div className="flex items-center space-x-2 text-[10px] text-slate-400">
+                             <span>{review.date}</span>
+                             <span className="text-slate-200">|</span>
+                             <span>Variasi: {review.variant}</span>
+                          </div>
+                       </div>
+                       
+                       <p className="text-[13px] text-slate-700 leading-relaxed py-1">
+                          {review.comment}
+                       </p>
+
+                       {review.images && review.images.length > 0 && (
+                          <div className="flex flex-wrap gap-2 py-2">
+                             {review.images.map((img, imgIdx) => (
+                                <div key={imgIdx} className="relative w-16 h-16 md:w-20 md:h-20 rounded-sm overflow-hidden border border-slate-100 cursor-zoom-in">
+                                   <Image src={img} alt="Review" fill className="object-cover" />
+                                </div>
+                             ))}
+                          </div>
+                       )}
+
+                       <div className="flex items-center space-x-4 text-xs pt-2">
+                          <button className="flex items-center space-x-1.5 text-slate-400 hover:text-[#f53d2d] transition-colors group">
+                             <ThumbsUp className="w-4 h-4" />
+                             <span className="group-hover:text-[#f53d2d]">{review.likes}</span>
+                          </button>
+                          <button className="text-slate-400 hover:text-slate-600">Terbantu?</button>
+                       </div>
+                    </div>
+                 </div>
+               ))}
             </div>
           </div>
         </div>

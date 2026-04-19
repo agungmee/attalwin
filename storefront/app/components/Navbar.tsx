@@ -44,6 +44,22 @@ export function Navbar() {
         </div>
       </div>
 
+      <div className="hidden md:flex items-center space-x-8">
+        {[
+          { name: 'Produk', href: '/' },
+          { name: 'Kontak', href: '#' },
+          { name: 'Kerjasama', href: '#' }
+        ].map((item) => (
+          <Link 
+            key={item.name} 
+            href={item.href} 
+            className="text-sm font-medium text-slate-600 hover:text-[#f53d2d] transition-colors"
+          >
+            {item.name}
+          </Link>
+        ))}
+      </div>
+
       <div className="flex items-center space-x-8">
         <button onClick={() => setCartOpen(true)} className="relative hover:text-[#f53d2d] transition-colors">
           <ShoppingBag className="w-6 h-6" />

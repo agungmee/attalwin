@@ -3,11 +3,13 @@
 import React from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ShoppingBag, X, Trash2, Minus, Plus } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { ShoppingBag, X, Trash2, Minus, Plus, ChevronRight } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 
 export function CartDrawer() {
-  const { cartItems, cartOpen, setCartOpen, removeFromCart, updateQuantity, cartTotal, cartCount } = useCart();
+  const router = useRouter();
+  const { cartItems, cartOpen, setCartOpen, removeFromCart, updateQuantity, cartTotal, cartCount, setCheckoutItems } = useCart();
 
   return (
     <AnimatePresence>
@@ -80,8 +82,16 @@ export function CartDrawer() {
                   <span className="text-sm text-slate-500">Total Harga</span>
                   <span className="text-2xl font-bold text-[#f53d2d]">Rp {cartTotal.toLocaleString('id-ID')}</span>
                 </div>
-                <button className="w-full bg-[#f53d2d] text-white py-4 rounded-sm font-bold shadow-lg shadow-[#f53d2d]/20 hover:bg-[#d73211] transition-colors">
-                  Checkout Sekarang
+                <button 
+                  onClick={() => {
+                    setCheckoutItems(cartItems);
+                    setCartOpen(false);
+                    router.push('/checkout');
+                  }}
+                  className="w-full bg-[#f53d2d] text-white py-4 rounded-sm font-bold shadow-lg shadow-[#f53d2d]/20 hover:bg-[#d73211] transition-colors flex items-center justify-center group"
+                >
+                  <span>Checkout Sekarang</span>
+                  <ChevronRight className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
                 </button>
               </div>
             )}

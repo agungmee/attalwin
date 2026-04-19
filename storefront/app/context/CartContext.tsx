@@ -22,12 +22,15 @@ interface CartContextType {
   updateQuantity: (id: number, delta: number, color?: string, size?: string) => void;
   cartTotal: number;
   cartCount: number;
+  checkoutItems: CartItem[];
+  setCheckoutItems: (items: CartItem[]) => void;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [checkoutItems, setCheckoutItems] = useState<CartItem[]>([]);
   const [cartOpen, setCartOpen] = useState(false);
 
   const addToCart = (product: any, color?: string, size?: string, quantity: number = 1) => {
@@ -77,7 +80,9 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       removeFromCart, 
       updateQuantity, 
       cartTotal, 
-      cartCount 
+      cartCount,
+      checkoutItems,
+      setCheckoutItems
     }}>
       {children}
     </CartContext.Provider>

@@ -145,3 +145,49 @@ export const PRODUCTS = [
     sizes: ["L", "XL", "XXL"]
   }
 ];
+
+export const REVIEWS = [
+  {
+    id: 1,
+    user: "Budi Santoso",
+    rating: 5,
+    date: "2024-03-15 14:30",
+    variant: "Hitam, XL",
+    comment: "Bahan sangat adem dan nyaman dipakai. Ukurannya pas sesuai deskripsi. Pengiriman juga cepat banget, seller responsif. Mantap!",
+    avatar: "https://i.pravatar.cc/150?u=budi",
+    images: [
+      "https://down-id.img.susercontent.com/file/id-11134207-7rbke-m6rr6z97e9pj7b@resize_w100_nl.webp"
+    ],
+    likes: 12
+  },
+  {
+    id: 2,
+    user: "Anisa Rahma",
+    rating: 5,
+    date: "2024-03-12 09:15",
+    variant: "Putih, L",
+    comment: "Kualitas jahitan rapi sekali. Warnanya sesuai dengan foto. Tidak menerawang, cocok banget buat ibadah umroh nanti. Terima kasih Attalwin!",
+    avatar: "https://i.pravatar.cc/150?u=anisa",
+    likes: 8
+  },
+  {
+    id: 3,
+    user: "Rizky Fauzi",
+    rating: 4,
+    date: "2024-03-10 16:45",
+    variant: "Abu Tua, M",
+    comment: "Barang sampai dengan aman. Kualitas kain oke banget untuk harga segini. Cuma pengiriman di ekspedisinya agak lama sedikit, tapi produknya TOP.",
+    avatar: "https://i.pravatar.cc/150?u=rizky",
+    likes: 5
+  },
+  {
+    id: 4,
+    user: "Dewi Lestari",
+    rating: 5,
+    date: "2024-03-08 11:20",
+    variant: "Khaki, L",
+    comment: "Suka banget sama potongannya, slim tapi tetap sopan. Bahannya jatuh dan nggak gampang kusut. Rekomen banget buat yang cari baju koko/gamis premium.",
+    avatar: "https://i.pravatar.cc/150?u=dewi",
+    likes: 15
+  }
+];
