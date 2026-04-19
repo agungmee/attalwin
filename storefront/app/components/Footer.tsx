@@ -77,7 +77,7 @@ export function Footer() {
         </div>
 
         <div className="border-t border-slate-50 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-slate-400 text-xs">© 2024 Attalwin Official Store. All Rights Reserved.</p>
+          <p className="text-slate-400 text-xs">© 2026 Attalwin Official Store. All Rights Reserved.</p>
           <div className="flex items-center space-x-6">
              <Link href="/" className="text-xs text-slate-400 hover:text-slate-600 transition-colors">Privacy Policy</Link>
              <Link href="/" className="text-xs text-slate-400 hover:text-slate-600 transition-colors">Terms of Service</Link>
