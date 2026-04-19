@@ -102,7 +102,8 @@ export default function Home() {
 
         <div className="px-4 space-y-4">
           <div className="bg-[#ededed] p-3 rounded-sm flex items-center justify-between">
-            <div className="flex items-center space-x-4">
+            {/* Desktop Sorting UI */}
+            <div className="hidden md:flex items-center space-x-4">
               {["Populer", "Terbaru", "Terlaris"].map((sort) => (
                 <button
                   key={sort}
@@ -125,6 +126,41 @@ export default function Home() {
                    <div onClick={() => setSortBy("Harga: Rendah ke Tinggi")} className="px-4 py-2 text-sm hover:text-[#f53d2d] cursor-pointer">Harga: Rendah ke Tinggi</div>
                    <div onClick={() => setSortBy("Harga: Tinggi ke Rendah")} className="px-4 py-2 text-sm hover:text-[#f53d2d] cursor-pointer">Harga: Tinggi ke Rendah</div>
                 </div>
+              </div>
+            </div>
+
+            {/* Mobile Sorting UI (Split 50/50) */}
+            <div className="md:hidden flex items-center gap-2 w-full">
+              {/* Main Sort Select */}
+              <div className="relative w-1/2">
+                <select 
+                  value={["Populer", "Terbaru", "Terlaris"].includes(sortBy) ? sortBy : "Lainnya"}
+                  onChange={(e) => setSortBy(e.target.value)}
+                  className="w-full bg-white border border-slate-100 rounded-sm px-3 py-2 text-[13px] font-bold shadow-sm outline-none appearance-none pr-8 text-slate-800"
+                >
+                  <option value="Populer">Populer</option>
+                  <option value="Terbaru">Terbaru</option>
+                  <option value="Terlaris">Terlaris</option>
+                  {sortBy.startsWith("Harga") && <option value="Lainnya">Terpilih: Harga</option>}
+                </select>
+                <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#f53d2d] pointer-events-none" />
+              </div>
+
+              {/* Price Sort Select */}
+              <div className="relative w-1/2">
+                <select 
+                  value={sortBy.startsWith("Harga") ? sortBy : "Harga"}
+                  onChange={(e) => setSortBy(e.target.value)}
+                  className={cn(
+                    "w-full bg-white border rounded-sm px-3 py-2 text-[13px] font-bold shadow-sm outline-none appearance-none pr-8",
+                    sortBy.startsWith("Harga") ? "border-[#f53d2d] text-[#f53d2d]" : "border-slate-100 text-slate-800"
+                  )}
+                >
+                  <option value="Harga" disabled={sortBy.startsWith("Harga")}>Harga</option>
+                  <option value="Harga: Rendah ke Tinggi">Rendah ke Tinggi</option>
+                  <option value="Harga: Tinggi ke Rendah">Tinggi ke Rendah</option>
+                </select>
+                <ChevronDown className={cn("absolute right-2 top-1/2 -translate-y-1/2 w-3.5 h-3.5 pointer-events-none", sortBy.startsWith("Harga") ? "text-[#f53d2d]" : "text-slate-400")} />
               </div>
             </div>
             
